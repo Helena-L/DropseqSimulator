@@ -1,11 +1,15 @@
 #' find polyA regions given a transcript
 #'
 #' @param transcript transcript sequence, DNAString.
+#' @param n minimum number of 'A's in a polyA region, integer. A region should contain at least n continous 'A's to be considered as a polyA region.
 #' @return polyA regions along the transcript, list.
 #' @export
 
-find_polyA_regions = function(transcript) {
-  polyAs = "AAAAAAAAAAAAAAA"
+find_polyA_regions = function(transcript, n=15) {
+  polyAs = ""
+  for(i in 1:n){
+    polyAs = paste(polyAs, "A", sep="")
+  }
   seq = as.character(transcript)
   polyA_regions = list()
   num = 0

@@ -4,10 +4,12 @@
 \alias{find_polyA_regions}
 \title{find polyA regions given a transcript}
 \usage{
-find_polyA_regions(transcript)
+find_polyA_regions(transcript, n = 15)
 }
 \arguments{
 \item{transcript}{transcript sequence, DNAString.}
+
+\item{n}{minimum number of 'A's in a polyA region, integer. A region should contain at least n continous 'A's to be considered as a polyA region.}
 }
 \value{
 polyA regions along the transcript, list.
