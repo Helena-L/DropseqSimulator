@@ -4,10 +4,10 @@
 #' @param fraglen fragment length, integer.
 #' @return probability of generating reads along the transcript
 #' @export
-calculate_sample_prob_polyA = function(transcript, fraglen) {
+calculate_sample_prob_polyA = function(transcript, fraglen, polyAnum=15) {
   rc_transcript = find_reverse_complement(transcript)
   # find the polyA region in the input transcript
-  polyA_regions = c(find_polyA_regions(transcript), find_polyA_regions(rc_transcript))
+  polyA_regions = c(find_polyA_regions(transcript, polyAnum), find_polyA_regions(rc_transcript, polyAnum))
   # for each base, calculate the distance to nearest polyA region
   end_pos = length(transcript)-fraglen+1
   transcript_polyA_arr = c()

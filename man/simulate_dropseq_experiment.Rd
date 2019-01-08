@@ -6,7 +6,7 @@
 Simulate Dropseq RNA-seq reads}
 \usage{
 simulate_dropseq_experiment(fasta = NULL, ngenes = NULL,
-  ncells = NULL, outdir = ".")
+  ncells = NULL, polyAnum = 15, outdir = ".")
 }
 \arguments{
 \item{fasta}{path to FASTA file containing transcripts from which to simulate reads.}
@@ -14,6 +14,8 @@ simulate_dropseq_experiment(fasta = NULL, ngenes = NULL,
 \item{ngenes}{number of genes to simulate}
 
 \item{ncells}{number of cells to simulate}
+
+\item{polyAnum}{minimum number of 'A's in a polyA region, integer. A region should contain at least n continous 'A's to be considered as a polyA region.}
 
 \item{outdir}{path to folder where simulated reads should be written. By default, reads written to the working directory.}
 }

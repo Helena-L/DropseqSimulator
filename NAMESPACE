@@ -3,6 +3,7 @@
 export(calculate_sample_prob_polyA)
 export(find_polyA_regions)
 export(find_reverse_complement)
+export(generate_barcodes)
 export(generate_countmat)
 export(simulate_dropseq_experiment)
 export(simulate_dropseq_experiment_countmat)

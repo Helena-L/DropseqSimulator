@@ -5,11 +5,12 @@
 #' @param fasta path to FASTA file containing transcripts from which to simulate reads.
 #' @param ngenes number of genes to simulate
 #' @param ncells number of cells to simulate
+#' @param polyAnum minimum number of 'A's in a polyA region, integer. A region should contain at least n continous 'A's to be considered as a polyA region.
 #' @param outdir path to folder where simulated reads should be written. By default, reads written to the working directory.
 #' @return No return, but simulated reads are written to \code{outdir}.
 #' @export
 
-simulate_dropseq_experiment = function(fasta=NULL, ngenes=NULL, ncells=NULL, outdir='.') {
+simulate_dropseq_experiment = function(fasta=NULL, ngenes=NULL, ncells=NULL, polyAnum=15, outdir='.') {
   if(!is.null(fasta)){
     transcripts = readDNAStringSet(fasta)
   }
@@ -28,5 +29,5 @@ simulate_dropseq_experiment = function(fasta=NULL, ngenes=NULL, ncells=NULL, out
 
   readmat = generate_countmat(ngenes, ncells)
 
-  simulate_dropseq_experiment_countmat(fasta=fasta, readmat=readmat, outdir=outdir)
+  simulate_dropseq_experiment_countmat(fasta=fasta, readmat=readmat, polyAnum=polyAnum, outdir=outdir)
 }

@@ -4,7 +4,7 @@
 \alias{calculate_sample_prob_polyA}
 \title{given a transcript and fragment length, calculate probability of generating reads along the transcript}
 \usage{
-calculate_sample_prob_polyA(transcript, fraglen)
+calculate_sample_prob_polyA(transcript, fraglen, polyAnum = 15)
 }
 \arguments{
 \item{transcript}{transcript sequence, DNAString.}
