@@ -6,7 +6,7 @@
 Simulate Dropseq RNA-seq reads}
 \usage{
 simulate_dropseq_experiment_countmat(fasta = NULL, readmat,
-  polyAnum = 15, outdir = ".")
+  polyAnum = 15, bias = "empirical", model = NULL, outdir = ".")
 }
 \arguments{
 \item{fasta}{path to FASTA file containing transcripts from which to simulate reads.}
@@ -14,6 +14,14 @@ simulate_dropseq_experiment_countmat(fasta = NULL, readmat,
 \item{readmat}{a gene-cell matrix, each entry represents number of reads to simulate.}
 
 \item{polyAnum}{minimum number of 'A's in a polyA region, integer. A region should contain at least n continous 'A's to be considered as a polyA region.}
+
+\item{bias}{polyA sampling bias, one of 'empirical', 'custom', 'naive' (default 'empirical'). If 'empirical', the built-in model is adopted.
+This model is trained on data sets from the Drop-seq experiments described in the Cell paper (Macosko et al, 2015).
+If 'custom', polyA sampling bias is captured from user input model. The path of user input model is specified in \code{model}.
+If 'naive', sampling probability is calculated as (1/distance to polyA region).}
+
+\item{model}{path to polyA sampling bias model if \code{bias} set to 'custom'. Model format should be a data frame with 2 columns.
+Column 1 is distance to polyA region, while Column 2 is probability of getting a fragment at that position. Column 2 sums to 1.}
 
 \item{outdir}{path to folder where simulated reads should be written. By default, reads written to the working directory.}
 }

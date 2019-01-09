@@ -24,7 +24,7 @@ sgseq = function(readmat, transcripts, paired, outdir, extras, reportCoverage=FA
       tSubset = tObj[offset:min(offset+999999L, length(tObj))] ## corrected value of integer added to offset to avoid duplicating reads
       tFrags = generate_fragments(tSubset, extras$fraglen[i], extras$fragsd[i],
                                   extras$readlen, extras$distr, extras$custdens,
-                                  extras$bias, extras$polyAnum, frag_GC_bias)
+                                  extras$bias, extras$polyAnum, extras$polyAbias, extras$polyAmodel, frag_GC_bias)
 
       if (!extras$strand_specific) {
         #reverse_complement some of those fragments

@@ -71,10 +71,10 @@
 #'   biased_frags
 #'
 generate_fragments = function(tObj, fraglen=250, fragsd=25,
-  readlen=100, distr='normal', custdens=NULL, bias='none', polyAnum=15,
+  readlen=100, distr='normal', custdens=NULL, bias='none', polyAnum=15, polyAbias='empirical', polyAmodel=NULL,
   frag_GC_bias='none') {
 
-    bias = match.arg(bias, c('none', 'rnaf', 'cdnaf', 'dropseqf', 'dropseqf_polyA'))
+    bias = match.arg(bias, c('none', 'rnaf', 'cdnaf', 'dropseqf', 'dropseqf_naive', 'dropseqf_polyA'))
     distr = match.arg(distr, c('normal', 'empirical', 'custom'))
     L = width(tObj)
     if(distr == 'empirical'){
@@ -116,15 +116,23 @@ generate_fragments = function(tObj, fraglen=250, fragsd=25,
             start_pos = c(start_pos, st)
         }
     }
+    else if(bias == 'dropseqf_naive'){
+        start_pos = c()
+        for(i in s){
+          prob_list = calculate_sample_prob_naive(L[i], fraglens[i])
+          pos_list = 1:(L[i]-fraglens[i]+1)
+          st = sample(pos_list, size=1, prob=prob_list, replace=TRUE)
+          start_pos = c(start_pos, st)
+        }
+    }
     else if(bias == 'dropseqf_polyA'){
         start_pos = c()
         for(i in s){
-            prob_list = calculate_sample_prob_polyA(tObj[[i]], fraglens[i], polyAnum)
+            prob_list = calculate_sample_prob_polyA(tObj[[i]], fraglens[i], polyAnum, polyAbias, polyAmodel)
             pos_list = 1:(L[i]-fraglens[i]+1)
             st = sample(pos_list, size=1, prob=prob_list, replace=TRUE)
             start_pos = c(start_pos, st)
         }
-
     }
     else{
         # bias == 'none'
@@ -149,37 +157,4 @@ generate_fragments = function(tObj, fraglen=250, fragsd=25,
     }
 
     return(tObj)
-}
-
-calculate_sample_prob_naive = function(transcript_len, fraglen) {
-    prob_list = c()
-    end_pos = transcript_len-fraglen+1
-    for(i in 1:end_pos){
-        prob_list = c(prob_list, 1/i)
-    }
-    prob_list = rev(prob_list)
-    prob_list_norm = c()
-    for(prob in prob_list){
-        prob_list_norm = c(prob_list_norm, prob / sum(prob_list))
-    }
-    return (prob_list_norm)
-}
-
-calculate_sample_prob_stat = function(transcript_len, fraglen) {
-    summary_arr = c()
-    for(line in readLines("summary_data.txt")){
-        summary_arr = c(summary_arr, as.numeric(line))
-    }
-
-    prob_list = c()
-    end_pos = transcript_len-fraglen+1
-    for(i in 1:end_pos){
-        prob_list = c(prob_list, summary_arr[i])
-    }
-    prob_list = rev(prob_list)
-    prob_list_norm = c()
-    for(prob in prob_list){
-        prob_list_norm = c(prob_list_norm, prob / sum(prob_list))
-    }
-    return (prob_list_norm)
 }

@@ -6,7 +6,7 @@
     if(!('distr' %in% names(extras))){
         extras$distr = 'normal'
     }else{
-        extras$distr = match.arg(extras$distr, 
+        extras$distr = match.arg(extras$distr,
             c('normal', 'empirical', 'custom'))
         if(extras$distr == 'custom' & !('custdens' %in% names(extras))){
             stop(.makepretty('to use custom fragment distribution, provide
@@ -42,7 +42,7 @@
     if(!('bias' %in% names(extras))){
         extras$bias = 'none'
     }else{
-        extras$bias = match.arg(extras$bias, c('none', 'rnaf', 'cdnaf', 'dropseqf', 'dropseqf_polyA'))
+        extras$bias = match.arg(extras$bias, c('none', 'rnaf', 'cdnaf', 'dropseqf', 'dropseqf_naive', 'dropseqf_polyA'))
     }
 
     if(!('error_model' %in% names(extras))){
@@ -60,7 +60,7 @@
     if(!('bias' %in% names(extras))){
         extras$bias = 'none'
     }else{
-        extras$bias = match.arg(extras$bias, c('none', 'rnaf', 'cdnaf', 'dropseqf', 'dropseqf_polyA'))
+        extras$bias = match.arg(extras$bias, c('none', 'rnaf', 'cdnaf', 'dropseqf', 'dropseqf_naive', 'dropseqf_polyA'))
     }
 
     if(!('lib_sizes' %in% names(extras))){
@@ -82,7 +82,7 @@
     if (!('strand_specific' %in% names(extras))) {
       extras$strand_specific <- FALSE
     }
-    
+
     return(extras)
 
 }

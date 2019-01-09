@@ -4,12 +4,16 @@
 \alias{generate_countmat}
 \title{generate a countmat matrix given gene number and cell number}
 \usage{
-generate_countmat(ngenes, ncells)
+generate_countmat(ngenes, ncells, loc, scale)
 }
 \arguments{
 \item{ngenes}{gene number}
 
 \item{ncells}{cell number}
+
+\item{loc}{location parameter for the library size log-normal distribution, together with \code{libscale} controls library size. Determine different sequencing depth (number of reads) between cells.}
+
+\item{scale}{scale parameter for the library size log-normal distribution, together with \code{libloc} controls library size. Determine different sequencing depth (number of reads) between ceels.}
 }
 \value{
 a countmat matrix

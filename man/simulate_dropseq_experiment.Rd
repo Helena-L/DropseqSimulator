@@ -6,7 +6,8 @@
 Simulate Dropseq RNA-seq reads}
 \usage{
 simulate_dropseq_experiment(fasta = NULL, ngenes = NULL,
-  ncells = NULL, polyAnum = 15, outdir = ".")
+  ncells = NULL, libloc = 5, libscale = 0.2, polyAnum = 15,
+  bias = "empirical", model = NULL, outdir = ".")
 }
 \arguments{
 \item{fasta}{path to FASTA file containing transcripts from which to simulate reads.}
@@ -15,7 +16,18 @@ simulate_dropseq_experiment(fasta = NULL, ngenes = NULL,
 
 \item{ncells}{number of cells to simulate}
 
+\item{libloc}{location parameter for the library size log-normal distribution, together with \code{libscale} controls library size. Determine different sequencing depth (number of reads) between cells.}
+
+\item{libscale}{scale parameter for the library size log-normal distribution, together with \code{libloc} controls library size. Determine different sequencing depth (number of reads) between ceels.}
+
 \item{polyAnum}{minimum number of 'A's in a polyA region, integer. A region should contain at least n continous 'A's to be considered as a polyA region.}
+
+\item{bias}{polyA sampling bias, one of 'empirical', 'custom' (default 'empirical'). If 'empirical', the built-in model is adopted.
+This model is trained on data sets from the Drop-seq experiments described in the Cell paper (Macosko et al, 2015).
+If 'custom', polyA sampling bias is captured from user input model. The path of user input model is specified in \code{model}.}
+
+\item{model}{path to polyA sampling bias model if \code{bias} set to 'custom'. Model format should be a data frame with 2 columns.
+Column 1 is distance to polyA region, while Column 2 is probability of getting a fragment at that position. Column 2 sums to 1.}
 
 \item{outdir}{path to folder where simulated reads should be written. By default, reads written to the working directory.}
 }
